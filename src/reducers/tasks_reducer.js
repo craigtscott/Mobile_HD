@@ -1,13 +1,15 @@
 import { RECEIVE_ALL_TASKS,
     RECEIVE_TASK,
     REMOVE_TASK,
-    RECEIVE_ERRORS } from '../actions/task_actions';
+    RECEIVE_ERRORS } from '../actions/task_action';
     import merge from 'lodash/merge';
 
     const TasksReducer = (state = {}, action) => {
       Object.freeze(state);
       switch(action.type){
         case RECEIVE_ALL_TASKS:
+        const tasks = action.tasks
+        debugger;
           return {
           ...state,
           ...tasks

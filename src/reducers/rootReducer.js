@@ -5,6 +5,7 @@ import TasksReducer from './tasks_reducer';
 
 export default combineReducers({
   session: sessionReducer,
-  lists: ListsReducer
+  lists: ListsReducer,
+  tasks: TasksReducer
 
 });

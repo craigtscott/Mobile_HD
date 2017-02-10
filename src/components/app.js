@@ -7,6 +7,7 @@ import { Text,
 import { Provider } from 'react-redux';
 import SessionContainer from './session/session_container';
 import ListContainer from './list/list_container';
+import TaskContainer from './task/task_container';
 import configureStore from '../store/store';
 
 class hdMobile extends Component {
@@ -15,6 +16,7 @@ class hdMobile extends Component {
     switch (route.name){
       case 'Login': return (<SessionContainer navigator={navigator} />);
       case 'Lists': return (<ListContainer navigator={navigator} />);
+      case 'Tasks': return (<TaskContainer navigator={navigator} />);
     }
   }
 

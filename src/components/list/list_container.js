@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import List from './list';
 import{ fetchAllLists } from '../../actions/list_actions';
-
+import{ fetchAllTasks } from '../../actions/task_action';
 const mapStateToProps = state => {
   return {
     lists: state.lists,
@@ -11,7 +11,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getLists: () => dispatch(fetchAllLists())
+    getLists: () => dispatch(fetchAllLists()),
+    getTasks: (id) => dispatch(fetchAllTasks(id))
   };
 };
 

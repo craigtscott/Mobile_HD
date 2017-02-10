@@ -4,7 +4,6 @@ export const REMOVE_LIST = 'REMOVE_LIST';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 import * as APIUtil from '../util/list_api_util';
-
 import {hashHistory, withRouter }from 'react-router';
 
 

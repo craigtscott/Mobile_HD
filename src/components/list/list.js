@@ -29,6 +29,8 @@ class List extends Component {
   }
 
   handlePress(id) {
+    this.props.getTasks(id);
+    this.props.navigator.push({ name: "Tasks" });
     console.log("victory", id);
   }
 

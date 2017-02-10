@@ -24,16 +24,16 @@ class Task extends Component {
 
   }
   componentWillMount() {
-    this.props.getTasks();
+    // this.props.getTasks();
 
   }
 
   handlePress(id) {
-    console.log("victory", id);
+    // console.log("victory", id);
   }
 
   componentWillReceiveProps(props) {
-    // debugger;
+    debugger;
     let temp = [];
     for (var task in props.tasks) {
     if (props.tasks.hasOwnProperty(task)) {
