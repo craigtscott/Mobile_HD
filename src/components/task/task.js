@@ -33,7 +33,6 @@ class Task extends Component {
   }
 
   componentWillReceiveProps(props) {
-    debugger;
     let temp = [];
     for (var task in props.tasks) {
     if (props.tasks.hasOwnProperty(task)) {

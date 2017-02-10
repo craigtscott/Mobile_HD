@@ -9,7 +9,6 @@ import { RECEIVE_ALL_TASKS,
       switch(action.type){
         case RECEIVE_ALL_TASKS:
         const tasks = action.tasks
-        debugger;
           return {
           ...state,
           ...tasks

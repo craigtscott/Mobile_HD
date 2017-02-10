@@ -6,15 +6,16 @@ import { Text,
         TouchableHighlight,
         AppRegistry,
         TextInput,
-        Button
+        Button,
+        Platform
         } from 'react-native';
 class Session extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      user_name: "cts85",
-      password: "password"
+      user_name: "",
+      password: ""
     };
     this._handleSubmit = this._handleSubmit.bind(this);
 
@@ -29,27 +30,79 @@ class Session extends Component {
   }
 
   render() {
+    var TouchableElement = TouchableHighlight;
+    if (Platform.OS === 'android') {
+     TouchableElement = TouchableNativeFeedback;
+    }
     return (
-      <View>
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(user_name) => this.setState({user_name})}
-          value={this.state.user_name}
-        />
-        <TextInput
-          secureTextEntry={true}
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(password) => this.setState({password})}
-          value={this.state.password}
-        />
-        <Button
-          onPress={() => this._handleSubmit() }
-          title="Login"
-          color="#841584"
-        />
+      <View style={styles.login}>
+        <View style={styles.height}>
+          <TextInput
+            style={styles.input}
+            placeholder='Username'
+            onChangeText={(user_name) => this.setState({user_name})}
+            value={this.state.user_name}
+          />
+        </View>
+        <View style={styles.height}>
+          <TextInput
+            placeholder='Password'
+            secureTextEntry={true}
+            style={styles.input}
+            onChangeText={(password) => this.setState({password})}
+            value={this.state.password}
+          />
+        </View>
+      <View style={styles.height}>
+        <TouchableElement
+          style={styles.button}
+          onPress={() => this._handleSubmit() }>
+          <Text style={styles.text}>Login</Text>
+        </TouchableElement>
+      </View>
       </View>
     );
+
   }
 }
+const styles = StyleSheet.create({
+  login: {
+    flex: 1,
+    backgroundColor: '#B3CC57',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    flex: 1,
+    backgroundColor: 'white',
+    width: 300,
+    borderWidth: 3,
+    borderColor: 'black',
+    borderRadius: 7,
+    paddingLeft: 10,
+  },
+  button: {
+    flex: 1,
+    backgroundColor: '#604848',
+    width: 300,
+    borderWidth: 3,
+    borderColor: 'black',
+    borderRadius: 7,
+    alignItems: 'center',
+
+    // border: 3 solid black,
+    // justify-content: center;
+
+  },
+  text: {
+    color: '#e5b718',
+    fontSize: 24,
+  },
+  height: {
+    marginTop: 20,
+    height: 40,
+  },
+});
 
 export default Session;
