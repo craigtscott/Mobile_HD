@@ -36,29 +36,33 @@ class Session extends Component {
     }
     return (
       <View style={styles.login}>
+          <Text style={styles.title}> Honey Do </Text>
+          <Text style={styles.title}> Mobile </Text>
+        <View style={styles.inputView}>
+          <View style={styles.height}>
+            <TextInput
+              style={styles.input}
+              placeholder='Username'
+              onChangeText={(user_name) => this.setState({user_name})}
+              value={this.state.user_name}
+            />
+          </View>
+          <View style={styles.height}>
+            <TextInput
+              placeholder='Password'
+              secureTextEntry={true}
+              style={styles.input}
+              onChangeText={(password) => this.setState({password})}
+              value={this.state.password}
+            />
+          </View>
         <View style={styles.height}>
-          <TextInput
-            style={styles.input}
-            placeholder='Username'
-            onChangeText={(user_name) => this.setState({user_name})}
-            value={this.state.user_name}
-          />
+          <TouchableElement
+            style={styles.button}
+            onPress={() => this._handleSubmit() }>
+            <Text style={styles.text}> Login </Text>
+          </TouchableElement>
         </View>
-        <View style={styles.height}>
-          <TextInput
-            placeholder='Password'
-            secureTextEntry={true}
-            style={styles.input}
-            onChangeText={(password) => this.setState({password})}
-            value={this.state.password}
-          />
-        </View>
-      <View style={styles.height}>
-        <TouchableElement
-          style={styles.button}
-          onPress={() => this._handleSubmit() }>
-          <Text style={styles.text}>Login</Text>
-        </TouchableElement>
       </View>
       </View>
     );
@@ -72,6 +76,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  inputView:{
+    marginTop: 50,
   },
   input: {
     flex: 1,
@@ -90,6 +97,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderRadius: 7,
     alignItems: 'center',
+    justifyContent: 'center',
 
     // border: 3 solid black,
     // justify-content: center;
@@ -99,9 +107,15 @@ const styles = StyleSheet.create({
     color: '#e5b718',
     fontSize: 24,
   },
+  title: {
+    fontFamily: 'Pacifico',
+    color: '#607848',
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
   height: {
     marginTop: 20,
-    height: 40,
+    height: 50,
   },
 });
 
