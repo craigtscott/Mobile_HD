@@ -18,3 +18,14 @@ export const createList = (list) => {
     body: JSON.stringify({ list })
   });
 };
+
+export const updateList = (list) => {
+  return fetch(`http://localhost:3000/api/lists/${list.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ list })
+  });
+};

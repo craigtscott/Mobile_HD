@@ -29,10 +29,11 @@ export const createList = list => dispatch => {
 
 export const updateList = list => dispatch => {
   return (
-    APIUtil.updateList(list).then(list => dispatch(receiveList(list)),
-    err => dispatch(receiveErrors(err.responseJSON)))
-  );
+    APIUtil.updateList(list)
+    .then(resp => resp.json())
+    .then(json => dispatch(receiveList(json))));
 };
+
 export const deleteList = id => dispatch => (
   APIUtil.deleteList(id).then(list => dispatch(removeList(list)),
   err => dispatch(receiveErrors(err.responseJSON)))

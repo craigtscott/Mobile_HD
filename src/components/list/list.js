@@ -58,6 +58,13 @@ class List extends Component {
     this.setState({title: ""});
   }
 
+  _changeList() {
+    list = {title: this.state.title, author_id: this.props.session.currentUser.id, id: this.state.id};
+    debugger;
+    this.props.updateList(list)
+    .then(() => this.setModalVisible(!this.state.modalVisible, 0));
+  }
+
   componentWillReceiveProps(props) {
     // debugger;
     let temp = [];
@@ -69,8 +76,12 @@ class List extends Component {
   this.setState({ dataSource: this.ds.cloneWithRows(temp) });
 };
 
-  setModalVisible(visible) {
-      this.setState({modalVisible: visible});
+  setModalVisible(visible, rowData) {
+    if (this.state.title === ""){
+      this.setState({modalVisible: visible, id: rowData.id, title: rowData.title});
+    } else {
+      this.setState({modalVisible: visible, id: rowData.id, title: ""});
+    }
     }
 
   render() {
@@ -79,21 +90,32 @@ class List extends Component {
      TouchableElement = TouchableNativeFeedback;
     }
 
-    const myIcon = (<Icon name="cog" size={30} color="#900" onPress={() => {this.setModalVisible(true);}}/>);
+    // const myIcon = (<Icon name="cog" size={30} color="#900" onPress={() => {this.setModalVisible(true, rowData.id);}}/>);
     return (
       <View style={styles.page}>
         <Modal
-          animationType={"slide"}
+          animationType={"fade"}
           transparent={false}
           visible={this.state.modalVisible}
           onRequestClose={() => {alert("Modal has been closed.");}}
           >
           <View style={{marginTop: 22}}>
             <View>
-              <Text>Hello World!</Text>
+              <View style={styles.height}>
+                <TextInput
+                  value={this.state.title}
+                  style={styles.input}
+                  onChangeText={(title) => this.setState({title})}
+                />
+              </View>
+              <TouchableHighlight onPress={() => {
+                this._changeList();
+              }}>
+                <Text>updateList</Text>
+              </TouchableHighlight>
 
               <TouchableHighlight onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
+                this.setModalVisible(!this.state.modalVisible, 0);
               }}>
                 <Text>Hide Modal</Text>
               </TouchableHighlight>
@@ -126,12 +148,16 @@ class List extends Component {
         dataSource={this.state.dataSource}
         renderRow={(rowData) =>
           <View>
-
-          <Text onPress={() => this.handlePress(rowData.id)}
-            style={styles.listItem}
-            >{rowData.title}</Text>
-              {myIcon}
-            </View>}
+            <View onPress={() => this.handlePress(rowData)}
+              style={styles.listItem}>
+                <View style={styles.listTitle}>
+                  <Text>{rowData.title}</Text>
+                </View>
+                <View style={styles.iconView}>
+                  <Icon name="cog" size={30} color="#900" onPress={() => {this.setModalVisible(true, rowData);}}/>
+                </View>
+            </View>
+          </View>}
       />
       </View>
     );
@@ -162,9 +188,20 @@ const styles = StyleSheet.create({
     height: 50,
   },
   listItem: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     borderWidth: 3,
     height: 50,
+    borderColor: 'green',
 
+  },
+  listTitle: {
+    borderWidth: 3,
+    borderColor: 'blue',
+    height: 48,
+    width: 100,
   },
   input: {
     flex: 1,
@@ -197,6 +234,11 @@ const styles = StyleSheet.create({
     // paddingTop: 20,
     height: 60,
   },
+iconView: {
+  borderWidth: 3,
+  height: 30,
+  width: 30,
+},
 
 });
 
