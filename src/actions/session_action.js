@@ -18,12 +18,14 @@ export const logout = () => dispatch => {
 );
 };
 export const signup = user => dispatch => {
-
-  return (
-    ApiUtil.signup(user).then(user => dispatch(receiveCurrentUser(user)),
-    err => dispatch(receiveErrors(err.responseJSON)))
+  debugger;
+  return(
+  ApiUtil.signup(user).then(resp => resp.json())
+  .then(json => dispatch(receiveCurrentUser(json)))
+  .catch(resp => dispatch(receiveErrors(JSON.parse(resp._bodytText))))
   );
 };
+
 const receiveCurrentUser = currentUser => {
   return {
     type: RECEIVE_CURRENT_USER,

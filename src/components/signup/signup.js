@@ -9,12 +9,14 @@ import { Text,
         Button,
         Platform
         } from 'react-native';
-class Session extends Component {
+class SessionSignup extends Component {
   constructor(props){
     super(props);
 
 
     this.state = {
+      first_name: "",
+      last_name: "",
       user_name: "",
       password: ""
     };
@@ -22,14 +24,15 @@ class Session extends Component {
 
   }
   _handleSubmit() {
+    debugger;
     const user = Object.assign({}, this.state);
     this.props.processForm(user)
     .then(() =>
       this.props.navigator.push({ name: "Lists" }));
   }
 
-  _signup() {
-    this.props.navigator.push({ name: "SignUp"});
+  _login() {
+    this.props.navigator.push({ name: "Login"});
   }
 
   render() {
@@ -42,6 +45,22 @@ class Session extends Component {
           <Text style={styles.title}> Honey Do </Text>
           <Text style={styles.title}> Mobile </Text>
         <View style={styles.inputView}>
+          <View style={styles.height}>
+            <TextInput
+              style={styles.input}
+              placeholder='First Name'
+              onChangeText={(first_name) => this.setState({first_name})}
+              value={this.state.first_name}
+            />
+          </View>
+          <View style={styles.height}>
+            <TextInput
+              style={styles.input}
+              placeholder='Last Name'
+              onChangeText={(last_name) => this.setState({last_name})}
+              value={this.state.last_name}
+            />
+          </View>
           <View style={styles.height}>
             <TextInput
               style={styles.input}
@@ -63,12 +82,12 @@ class Session extends Component {
           <TouchableElement
             style={styles.button}
             onPress={() => this._handleSubmit() }>
-            <Text style={styles.text}> Login </Text>
+            <Text style={styles.text}> Sign Up </Text>
           </TouchableElement>
         </View>
         <Button
-          onPress={() => this._signup() }
-          title="Sign Up"
+          onPress={() => this._login() }
+          title="Log in"
           color="#841584"
         />
 
@@ -131,4 +150,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Session;
+export default SessionSignup;
