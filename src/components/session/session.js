@@ -15,8 +15,8 @@ class Session extends Component {
 
 
     this.state = {
-      user_name: "",
-      password: ""
+      user_name: "A",
+      password: "password"
     };
     this._handleSubmit = this._handleSubmit.bind(this);
 

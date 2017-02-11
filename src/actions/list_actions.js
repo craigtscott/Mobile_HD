@@ -9,11 +9,10 @@ import {hashHistory, withRouter }from 'react-router';
 
 export const fetchAllLists = () => dispatch => {
   return (
-  APIUtil.fetchAllLists().then(resp => resp.json())
+  APIUtil.fetchAllLists()
+  .then(resp => resp.json())
   .then(json => dispatch(receiveAllLists(json)))
 );
- // dispatch(receiveAllLists(list)),
- //  err => dispatch(receiveErrors(err.responseJSON))));
 };
 
 export const fetchList = id => dispatch => (
@@ -23,9 +22,9 @@ export const fetchList = id => dispatch => (
 
 export const createList = list => dispatch => {
   return (
-    APIUtil.createList(list).then(list => dispatch(receiveList(list)),
-  err => dispatch(receiveErrors(err.responseJSON)))
-  );
+    APIUtil.createList(list)
+    .then(resp => resp.json())
+    .then(json => dispatch(receiveList(json))));
 };
 
 export const updateList = list => dispatch => {
