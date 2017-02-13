@@ -13,10 +13,11 @@ export const fetchAllTasks = (id) => dispatch => {
   .then(json => dispatch(receiveAllTasks(json))));
 };
 
-export const fetchTask = id => dispatch => (
-  APIUtil.fetchTask(id).then(task => dispatch(receiveTask(task)),
-  err => dispatch(receiveErrors(err.responseJSON)))
-);
+export const fetchTask = id => dispatch => {
+  return (
+  APIUtil.fetchTasks(id).then(resp => resp.json())
+  .then(json => dispatch(receiveTasks(json))));
+};
 
 export const searchTasks = query => dispatch => {
   return(
@@ -27,22 +28,20 @@ export const searchTasks = query => dispatch => {
 
 export const createTask = task => dispatch => {
   return (
-    APIUtil.createTask(task).then(task => dispatch(receiveTask(task)),
-  err => dispatch(receiveErrors(err.responseJSON)))
-  );
+    APIUtil.createTask(task).then(resp => resp.json())
+    .then(json => dispatch(receiveTask(json))));
 };
 
 export const updateTask = task => dispatch => {
   return (
-    APIUtil.updateTask(task).then(task => dispatch(receiveTask(task)),
-    err => dispatch(receiveErrors(err.responseJSON)))
-  );
+    APIUtil.updateTask(task).then(resp => resp.json())
+    .then(json => dispatch(receiveTask(json))));
 };
-export const deleteTask = id => dispatch => (
-  APIUtil.deleteTask(id).then(task => dispatch(removeTask(task)),
-  err => dispatch(receiveErrors(err.responseJSON)))
-);
-
+export const deleteTask = id => dispatch => {
+  return (
+  APIUtil.deleteTask(id).then(resp => resp.json())
+  .then(json => dispatch(removeTask(json))));
+};
 export const removeTask = task => ({
   type: REMOVE_TASK,
   task

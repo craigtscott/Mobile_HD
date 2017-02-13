@@ -24,7 +24,7 @@ class SessionSignup extends Component {
 
   }
   _handleSubmit() {
-    debugger;
+
     const user = Object.assign({}, this.state);
     this.props.processForm(user)
     .then(() =>

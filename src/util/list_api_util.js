@@ -29,3 +29,13 @@ export const updateList = (list) => {
     body: JSON.stringify({ list })
   });
 };
+
+export const deleteList = (id) => {
+  return fetch(`http://localhost:3000/api/lists/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+  });
+};

@@ -17,7 +17,7 @@ class hdMobile extends Component {
       case 'Login': return (<SessionContainer navigator={navigator} />);
       case 'SignUp': return (<SignupContainer navigator={navigator}/>);
       case 'Lists': return (<ListContainer navigator={navigator} />);
-      case 'Tasks': return (<TaskContainer navigator={navigator} />);
+      case 'Tasks': return (<TaskContainer navigator={navigator} list_id={route.list_id} />);
     }
   }
 

@@ -10,7 +10,6 @@ import { RECEIVE_ALL_TASKS,
         case RECEIVE_ALL_TASKS:
         const tasks = action.tasks
           return {
-          ...state,
           ...tasks
         };
         case RECEIVE_TASK:

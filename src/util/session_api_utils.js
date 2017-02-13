@@ -1,5 +1,4 @@
 export const signup = (user) => {
-  debugger;
   return fetch(`http://localhost:3000/api/users`, {
     method: 'POST',
     headers: {

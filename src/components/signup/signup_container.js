@@ -10,7 +10,6 @@ const mapStateToProps = ({session}) => {
 };
 
 const mapDispatchToProps = (dispatch, { location }) => {
-  debugger;
   return {processForm: user => dispatch(signup(user))};
 
 };

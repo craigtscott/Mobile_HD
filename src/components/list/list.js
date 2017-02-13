@@ -26,7 +26,7 @@ class List extends Component {
       modalVisible: false,
     };
 
-    this.handlePress = this.handlePress.bind(this);
+    this._showTasks = this._showTasks.bind(this);
     this._makeNewList = this._makeNewList.bind(this);
 
   }
@@ -35,16 +35,17 @@ class List extends Component {
     .then((props) => {
       if (props.lists){
         if (Object.keys(props.lists).length === 0){
+          this._makeNewList();
         }
       }
     });
 
   }
 
-  handlePress(id) {
-    this.props.getTasks(id);
-    this.props.navigator.push({ name: "Tasks" });
-    console.log("victory", id);
+_showTasks(rowData) {
+    this.props.getTasks(rowData);
+    this.props.navigator.push({ name: "Tasks", list_id: `${rowData.id}` });
+
   }
 
   _makeNewList() {
@@ -60,13 +61,16 @@ class List extends Component {
 
   _changeList() {
     list = {title: this.state.title, author_id: this.props.session.currentUser.id, id: this.state.id};
-    debugger;
     this.props.updateList(list)
     .then(() => this.setModalVisible(!this.state.modalVisible, 0));
   }
 
+  _deleteList() {
+    this.props.deleteList(this.state.id)
+    .then(() => this.setModalVisible(!this.state.modalVisible, 0));
+  }
+
   componentWillReceiveProps(props) {
-    // debugger;
     let temp = [];
     for (var list in props.lists) {
     if (props.lists.hasOwnProperty(list)) {
@@ -90,7 +94,10 @@ class List extends Component {
      TouchableElement = TouchableNativeFeedback;
     }
 
-    // const myIcon = (<Icon name="cog" size={30} color="#900" onPress={() => {this.setModalVisible(true, rowData.id);}}/>);
+    let bool = this.state.title !== "" ? false : true;
+    let _buttonName = bool ? styles.buttonDisabled : styles.button;
+
+
     return (
       <View style={styles.page}>
         <Modal
@@ -101,28 +108,40 @@ class List extends Component {
           >
           <View style={{marginTop: 22}}>
             <View>
-              <View style={styles.height}>
-                <TextInput
-                  value={this.state.title}
-                  style={styles.input}
-                  onChangeText={(title) => this.setState({title})}
-                />
+              <View style={styles.addListView}>
+                <View style={styles.height}>
+                  <TextInput
+                    value={this.state.title}
+                    style={styles.input}
+                    onChangeText={(title) => this.setState({title})}
+                  />
+                </View>
+                <View style={styles.height}>
+                <TouchableElement style={styles.button} onPress={() => {
+                  this._changeList();
+                }}>
+                  <Text style={styles.text}>updateList</Text>
+                </TouchableElement>
               </View>
-              <TouchableHighlight onPress={() => {
-                this._changeList();
-              }}>
-                <Text>updateList</Text>
-              </TouchableHighlight>
-
-              <TouchableHighlight onPress={() => {
-                this.setModalVisible(!this.state.modalVisible, 0);
-              }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
-
+            </View>
+            <View style={styles.addListView}>
+              <View style={styles.height}>
+                <View style={styles.iconView}>
+                  <Icon name="trash" size={50} color="#900" onPress={() => {this._deleteList();}}/>
+                </View>
+              </View>
+              <View style={styles.height}>
+                <TouchableElement style={styles.buttonHide}
+                  onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible, 0);
+                }}>
+                  <Text style={styles.text}>Hide Modal</Text>
+                </TouchableElement>
+              </View>
             </View>
           </View>
-        </Modal>
+        </View>
+      </Modal>
 
         <View style={styles.addListView}>
           <View style={styles.height}>
@@ -135,7 +154,8 @@ class List extends Component {
           </View>
           <View style={styles.height}>
             <TouchableElement
-              style={styles.button}
+              disabled={bool}
+              style={_buttonName}
               onPress={() => this._makeNewList() }>
               <Text style={styles.text}> Add List </Text>
             </TouchableElement>
@@ -148,13 +168,14 @@ class List extends Component {
         dataSource={this.state.dataSource}
         renderRow={(rowData) =>
           <View>
-            <View onPress={() => this.handlePress(rowData)}
+            <View
               style={styles.listItem}>
-                <View style={styles.listTitle}>
-                  <Text>{rowData.title}</Text>
+                <View style={styles.listTitle}
+                      >
+                  <Text onPress={() => {this._showTasks(rowData);}}>{rowData.title}</Text>
                 </View>
                 <View style={styles.iconView}>
-                  <Icon name="cog" size={30} color="#900" onPress={() => {this.setModalVisible(true, rowData);}}/>
+                  <Icon name="pencil-square-o" size={30} color='#607848' onPress={() => {this.setModalVisible(true, rowData);}}/>
                 </View>
             </View>
           </View>}
@@ -165,6 +186,7 @@ class List extends Component {
 }
 const styles = StyleSheet.create({
   page: {
+    marginTop: 22,
     flex: 1,
     backgroundColor: '#B3CC57',
     // flexDirection: 'column',
@@ -174,8 +196,6 @@ const styles = StyleSheet.create({
   addListView: {
     marginTop: 15,
     paddingBottom: 5,
-    borderWidth: 3,
-    borderColor: 'green',
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 65,
@@ -183,8 +203,6 @@ const styles = StyleSheet.create({
   },
   list: {
     marginTop: 10,
-    borderWidth: 3,
-    borderColor: 'red',
     height: 50,
   },
   listItem: {
@@ -192,16 +210,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 3,
     height: 50,
-    borderColor: 'green',
+    borderBottomWidth: 3,
+    borderColor: '#607848',
 
   },
   listTitle: {
-    borderWidth: 3,
-    borderColor: 'blue',
+    flex: 1,
+    justifyContent: 'center',
     height: 48,
-    width: 100,
+    width: 90,
+    paddingLeft: 10,
   },
   input: {
     flex: 1,
@@ -214,7 +233,27 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    backgroundColor: '#604848',
+    backgroundColor: '#607848',
+    width: 125,
+    borderWidth: 3,
+    borderColor: 'black',
+    borderRadius: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonHide: {
+    flex: 1,
+    backgroundColor: '#607848',
+    width: 200,
+    borderWidth: 3,
+    borderColor: 'black',
+    borderRadius: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonDisabled: {
+    flex: 1,
+    backgroundColor: 'grey',
     width: 125,
     borderWidth: 3,
     borderColor: 'black',
@@ -235,9 +274,8 @@ const styles = StyleSheet.create({
     height: 60,
   },
 iconView: {
-  borderWidth: 3,
   height: 30,
-  width: 30,
+  width: 50,
 },
 
 });

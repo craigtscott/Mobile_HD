@@ -34,10 +34,13 @@ export const updateList = list => dispatch => {
     .then(json => dispatch(receiveList(json))));
 };
 
-export const deleteList = id => dispatch => (
-  APIUtil.deleteList(id).then(list => dispatch(removeList(list)),
-  err => dispatch(receiveErrors(err.responseJSON)))
-);
+export const deleteList = id => dispatch => {
+  return (
+    APIUtil.deleteList(id)
+    .then(resp => resp.json())
+    .then(json => dispatch(removeList(json))));
+};
+
 
 export const removeList = list => ({
   type: REMOVE_LIST,
