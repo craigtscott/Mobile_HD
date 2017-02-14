@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import CheckBox from 'react-native-check-box';
+import CheckBox from 'react-native-checkbox';
 import { Text,
         View,
         StyleSheet,
@@ -24,15 +24,12 @@ class Task extends Component {
       editTitle: "",
       detailShow: "none",
       id: null,
-      done: null,
+      done: true,
       listId: this.props.list_id,
       taskArray: [],
       dataSource: this.ds.cloneWithRows(["",""]),
       modalVisible: false,
     };
-
-    // this.handlePress = this.handlePress.bind(this);
-
   }
 
   _addTask() {
@@ -85,6 +82,7 @@ class Task extends Component {
 
     }
   }
+
   this.setState({ dataSource: this.ds.cloneWithRows(temp) });
 };
 
@@ -132,7 +130,7 @@ class Task extends Component {
                   <TouchableElement style={styles.buttonHide} onPress={() => {
                     this.setModalVisible(!this.state.modalVisible, 0);
                   }}>
-                  <Text style={styles.text}>Hide Modal</Text>
+                  <Text style={styles.text}>Back to Tasks</Text>
                 </TouchableElement>
               </View>
               </View>
@@ -172,14 +170,13 @@ class Task extends Component {
       <ListView
         dataSource={this.state.dataSource}
         renderRow={(rowData) =>
-          <View onPress={() => this.handlePress(rowData.id)}>
+          <View onPress={() =>  this.handlePress(rowData.id)}>
             <View style={styles.listItem}>
               <View style={styles.left}>
                 <CheckBox
                   style={styles.checkBox}
-                  onClick={()=> this._toggleDone(rowData.id)}
-                  isChecked={rowData.done}
-                  leftText={rowData.title}
+                  checked={rowData.done}
+                  onChange={()=> this._toggleDone(rowData.id)}
                 />
               <Text>{rowData.title}</Text>
             </View>
@@ -188,7 +185,7 @@ class Task extends Component {
               style={styles.icon}
               onPress={() => this.setModalVisible(true, rowData)} />
           </View>
-          </View>}
+        </View>}
       />
 
       </View>

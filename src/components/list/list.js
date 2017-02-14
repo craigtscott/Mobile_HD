@@ -135,7 +135,7 @@ _showTasks(rowData) {
                   onPress={() => {
                   this.setModalVisible(!this.state.modalVisible, 0);
                 }}>
-                  <Text style={styles.text}>Hide Modal</Text>
+                  <Text style={styles.text}>Back to Lists</Text>
                 </TouchableElement>
               </View>
             </View>
