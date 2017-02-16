@@ -11,7 +11,6 @@ export const signup = (user) => {
 
 
 export const login = (user) => (
-  // fetch(`www.hd-list.com/#/api/session`, {
   fetch(`http://localhost:3000/api/session`, {
     method: 'POST',
     headers: {

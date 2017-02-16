@@ -107,10 +107,6 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     alignItems: 'center',
     justifyContent: 'center',
-
-    // border: 3 solid black,
-    // justify-content: center;
-
   },
   text: {
     color: '#e5b718',

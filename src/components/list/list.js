@@ -77,6 +77,7 @@ _showTasks(rowData) {
       temp.push(props.lists[list]);
     }
   }
+  debugger;
   this.setState({ dataSource: this.ds.cloneWithRows(temp) });
 };
 
@@ -120,7 +121,7 @@ _showTasks(rowData) {
                 <TouchableElement style={styles.button} onPress={() => {
                   this._changeList();
                 }}>
-                  <Text style={styles.text}>updateList</Text>
+                  <Text style={styles.text}>Update List</Text>
                 </TouchableElement>
               </View>
             </View>
@@ -164,6 +165,7 @@ _showTasks(rowData) {
       </View>
 
       <ListView
+        enableEmptySections={true}
         style={styles.list}
         dataSource={this.state.dataSource}
         renderRow={(rowData) =>
@@ -172,6 +174,7 @@ _showTasks(rowData) {
               style={styles.listItem}>
                 <View style={styles.listTitle}
                       >
+
                   <Text onPress={() => {this._showTasks(rowData);}}>{rowData.title}</Text>
                 </View>
                 <View style={styles.iconView}>
@@ -199,6 +202,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 65,
+    paddingLeft: 5,
+    paddingRight: 5,
 
   },
   list: {
@@ -225,7 +230,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     backgroundColor: 'white',
-    width: 235,
+    width: 230,
     borderWidth: 3,
     borderColor: 'black',
     borderRadius: 7,
@@ -234,7 +239,7 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     backgroundColor: '#607848',
-    width: 125,
+    width: 130,
     borderWidth: 3,
     borderColor: 'black',
     borderRadius: 7,
@@ -260,10 +265,6 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     alignItems: 'center',
     justifyContent: 'center',
-
-    // border: 3 solid black,
-    // justify-content: center;
-
   },
   text: {
     color: '#e5b718',

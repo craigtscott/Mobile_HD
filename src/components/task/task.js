@@ -106,7 +106,7 @@ class Task extends Component {
           >
           <View style={{marginTop: 22}}>
             <View>
-              <View style={styles.addListView}>
+              <View style={styles.addTaskView}>
                 <View style={styles.height}>
                   <TextInput
                     value={this.state.title}
@@ -114,13 +114,15 @@ class Task extends Component {
                     onChangeText={(title) => this.setState({title})}
                   />
                 </View>
-                <TouchableElement style={styles.button} onPress={() => {
-                  this._changeTask();
-                }}>
-                  <Text style={styles.text}>updateTask</Text>
-                </TouchableElement>
+                <View style={styles.height}>
+                  <TouchableElement style={styles.button} onPress={() => {
+                    this._changeTask();
+                  }}>
+                    <Text style={styles.text}>UpdateTask</Text>
+                  </TouchableElement>
+                </View>
               </View>
-              <View style={styles.addListView}>
+              <View style={styles.addTaskView}>
                 <View style={styles.height}>
                   <View style={styles.iconView}>
                     <Icon name="trash" size={50} color="#900" onPress={() => {this._deleteTast();}}/>
@@ -147,7 +149,7 @@ class Task extends Component {
           </View>
         </View>
 
-        <View style={styles.addListView}>
+        <View style={styles.addTaskView}>
           <View style={styles.height}>
             <TextInput
               placeholder='New Task'
@@ -174,6 +176,8 @@ class Task extends Component {
             <View style={styles.listItem}>
               <View style={styles.left}>
                 <CheckBox
+                  label=""
+                  underlayColor='#B3CC57'
                   style={styles.checkBox}
                   checked={rowData.done}
                   onChange={()=> this._toggleDone(rowData.id)}
@@ -198,9 +202,6 @@ const styles = StyleSheet.create({
     marginTop: 22,
     flex: 1,
     backgroundColor: '#B3CC57',
-    // flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
   },
   head: {
     backgroundColor: '#607848',
@@ -220,11 +221,13 @@ const styles = StyleSheet.create({
     color: '#e5b718',
     fontSize: 24,
   },
-  addListView: {
+  addTaskView: {
     paddingBottom: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 65,
+    paddingLeft: 5,
+    paddingRight: 5,
 
   },
   list: {
@@ -252,7 +255,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     backgroundColor: 'white',
-    width: 235,
+    width: 225,
     borderWidth: 3,
     borderColor: 'black',
     borderRadius: 7,
@@ -261,7 +264,7 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     backgroundColor: '#607848',
-    width: 125,
+    width: 135,
     borderWidth: 3,
     borderColor: 'black',
     borderRadius: 7,
@@ -281,16 +284,12 @@ const styles = StyleSheet.create({
   buttonDisabled: {
     flex: 1,
     backgroundColor: 'grey',
-    width: 125,
+    width: 135,
     borderWidth: 3,
     borderColor: 'black',
     borderRadius: 7,
     alignItems: 'center',
     justifyContent: 'center',
-
-    // border: 3 solid black,
-    // justify-content: center;
-
   },
   text: {
     color: '#e5b718',
