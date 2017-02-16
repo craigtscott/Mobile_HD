@@ -11,12 +11,15 @@ HD & HDM is a solo project by Craig Scott.
 
 Hd allows:
 - users to create a secure account
+
 ![login:][auth]
 
 - lists to be created edited and destroyed
+
 ![lists:][lists]
 
 - tasks to be created edited moved to other lists and destroyed
+
 ![tasks:][lists]
 
 
