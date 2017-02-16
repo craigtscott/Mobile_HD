@@ -1,6 +1,6 @@
 #Honey Do Mobile
 
-Honey Do Mobile to-do list for the busy bee. HDM utilizes the Honey Do database witch can be found at ![www.hd-list.com][Live]| ![GIT][GIT]. HD & HDM empowers user and allows them to take back their hectic lives by using this dynamic list app. HD was the inspired by Remember the Milk .
+Honey Do Mobile to-do list for the busy bee. HDM utilizes the Honey Do database witch can be found at [www.hd-list.com][Live] | [GIT][GIT]. HD & HDM empowers user and allows them to take back their hectic lives by using this dynamic list app. HD was the inspired by Remember the Milk .
 
 HDM is build on a Rails backend with a React Native frontend.
 
