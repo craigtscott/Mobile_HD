@@ -45,4 +45,4 @@ HDM was written with future development in mind this will allow me to expand the
 [auth]: ./docs/gifs/login.gif "Honey Do"
 [lists]: ./docs/gifs/lists.gif "Honey Do"
 [proposal]: ./docs/proposal.md
-[backend]: ./docs/backend.md
+[schema]: ./docs/schema.md
