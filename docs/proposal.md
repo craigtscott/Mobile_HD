@@ -6,7 +6,6 @@
 - [ ] Auth
 - [ ] Tasks
 - [ ] Lists
-- [ ] List summary (time, num tasks, num completed)
 - [ ] Production readme
 
 
