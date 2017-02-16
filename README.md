@@ -38,8 +38,8 @@ I wrote the [proposal][proposal] and designed HDM to work with the existing [dat
 HDM was written with future development in mind this will allow me to expand the features to be more aline with DH as it continues to be revised.
 
 
-[Honey Do]: http://www.hd-list.com
-[Git]:https://github.com/craigtscott/Honey-Do
+[Live]: http://www.hd-list.com
+[Git]: https://github.com/craigtscott/Honey-Do
 [cloudinary]: http://cloudinary.com
 [splash page]: ./docs/images/splash.png "Honey Do"
 [auth]: ./docs/gifs/login.gif "Honey Do"
