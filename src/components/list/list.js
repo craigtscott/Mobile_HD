@@ -24,6 +24,7 @@ class List extends Component {
       id: 0,
       dataSource: this.ds.cloneWithRows(["",""]),
       modalVisible: false,
+      session_token: "",
     };
 
     this._showTasks = this._showTasks.bind(this);

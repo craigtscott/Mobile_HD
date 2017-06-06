@@ -14,10 +14,9 @@ import { Text,
 
 const ACCESS_TOKEN = 'access_token';
 
-class Session extends Component {
-  constructor(props){
-    super(props);
-
+class Login extends Component {
+  constructor(){
+    super();
 
     this.state = {
       user_name: "",
@@ -87,45 +86,43 @@ class Session extends Component {
      TouchableElement = TouchableNativeFeedback;
     }
     return (
-      <View style={styles.login}>
-          <Text style={styles.title}> Honey Do </Text>
-          <Text style={styles.title}> Mobile </Text>
-        <View style={styles.inputView}>
-          <View style={styles.height}>
-            <TextInput
-              onChangeText={(val) => this.setState({user_name: val})}
-              style={styles.input}
-              placeholder="Username"
-            />
-          // <text>{this.state.user_name}</text>
-          </View>
-          <View style={styles.height}>
-            <TextInput
-              placeholder='Password'
-              secureTextEntry={true}
-              style={styles.input}
-              onChangeText={(password) => this.setState({password})}
-              value={this.state.password}
-            />
-          </View>
+    <View style={styles.login}>
+        <Text style={styles.title}> Honey Do </Text>
+        <Text style={styles.title}> Mobile </Text>
+      <View style={styles.inputView}>
         <View style={styles.height}>
-          <TouchableElement
-            style={styles.button}
-            onPress={() => this._handleSubmit.bind(this) }>
-            <Text style={styles.text}> Login </Text>
-          </TouchableElement>
+          <TextInput
+            onChangeText={(user_name) => this.setState({user_name})}
+            style={styles.input}
+            placeholder="Username"
+          />
         </View>
-        <Button
-          onPress={() => this._signup() }
-          title="Sign Up"
-          color="#841584"
-        />
-        <Text>
-           {this.state.error}
-         </Text>
+        <View style={styles.height}>
+          <TextInput
+            onChangeText={(password) => this.setState({password})}
+            placeholder='Password'
+            secureTextEntry={true}
+            style={styles.input}
+          />
+        </View>
+      <View style={styles.height}>
+        <TouchableElement
+          style={styles.button}
+          onPress={() => this._handleSubmit.bind(this) }>
+          <Text style={styles.text}> Login </Text>
+        </TouchableElement>
+      </View>
+      <Button
+        onPress={() => this._signup() }
+        title="Sign Up"
+        color="#841584"
+      />
+      <Text>
+         {this.state.error}
+       </Text>
 
       </View>
-      </View>
+    </View>
     );
 
   }
@@ -179,4 +176,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Session;
+export default Login;

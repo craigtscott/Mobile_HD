@@ -7,8 +7,8 @@ import * as ApiUtil from '../util/session_api_utils';
 export const login = user => dispatch => {
   return(
   ApiUtil.login(user).then(resp => resp.json())
-  .then(json => dispatch(receiveCurrentUser(json)))
-  .catch(resp => dispatch(receiveErrors(JSON.parse(resp._bodytText))))
+    .then(json => dispatch(receiveCurrentUser(json)))
+    .catch(resp => dispatch(receiveErrors(JSON.parse(resp._bodytText))))
   );
 };
 
@@ -19,9 +19,10 @@ export const logout = () => dispatch => {
 };
 export const signup = user => dispatch => {
   return(
-  ApiUtil.signup(user).then(resp => resp.json())
-  .then(json => dispatch(receiveCurrentUser(json)))
-  .catch(resp => dispatch(receiveErrors(JSON.parse(resp._bodytText))))
+  ApiUtil.signup(user)
+    .then(resp => resp.json())
+    .then(json => dispatch(receiveCurrentUser(json)))
+    .catch(resp => dispatch(receiveErrors(JSON.parse(resp._bodytText))))
   );
 };
 
