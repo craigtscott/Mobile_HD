@@ -92,14 +92,14 @@ class Login extends Component {
       <View style={styles.inputView}>
         <View style={styles.height}>
           <TextInput
-            onChangeText={(user_name) => this.setState({user_name})}
+            onChangeText={(name) => this.setState({user_name: name})}
             style={styles.input}
             placeholder="Username"
           />
         </View>
         <View style={styles.height}>
           <TextInput
-            onChangeText={(password) => this.setState({password})}
+            onChangeText={(pass) => this.setState({password: pass})}
             placeholder='Password'
             secureTextEntry={true}
             style={styles.input}
