@@ -20,11 +20,12 @@ class Login extends Component {
     super();
 
     this.state = {
-      user_name: "demo",
-      password: "password",
+      user_name: "",
+      password: "",
       error: "",
       showProgress: false,
     }
+    this.onLoginPressed = this.onLoginPressed.bind(this);
   }
 
 
@@ -46,7 +47,11 @@ class Login extends Component {
     });
   }
 
-  async onLoginPressed() {
+  async onLoginPressed(info={}) {
+    let user = Object.assign(this.state, info);
+    let username = user.user_name;
+    let password = user.password;
+    debugger;
     try {
       let response = await fetch('http://localhost:3000/api/session', {
         method: 'POST',
@@ -56,8 +61,8 @@ class Login extends Component {
           },
         body: JSON.stringify({
           user:{
-            user_name: this.state.user_name,
-            password: this.state.password,
+            user_name: username,
+            password: password,
             mobile: true,
           }
         })
@@ -111,8 +116,14 @@ class Login extends Component {
       <View style={styles.height}>
         <TouchableElement
           style={styles.button}
-          onPress={this.onLoginPressed.bind(this)}>
+          onPress={() => this.onLoginPressed()}>
           <Text style={styles.text}> Login </Text>
+        </TouchableElement>
+      </View>
+      <View style={styles.height}>
+        <TouchableElement style={styles.button}
+          onPress={() => this.onLoginPressed({user_name: 'demo', password: 'password'})}>
+          <Text style={styles.text}> Demo </Text>
         </TouchableElement>
       </View>
       <Button

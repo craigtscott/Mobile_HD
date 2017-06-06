@@ -63,9 +63,11 @@ class Root extends Component {
       <View style={styles.root}>
         <Text style={styles.title}>Welcome To HdMoble</Text>
         <Text>the way to access your todo list on the go!</Text>
-        <TouchableHighlight onPress={ this.navigate.bind(this, 'login') } style={styles.button}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableHighlight>
+        <View style={styles.height}>
+          <TouchableHighlight onPress={ this.navigate.bind(this, 'login') } style={styles.button}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
@@ -82,19 +84,11 @@ const styles = StyleSheet.create({
   inputView:{
     marginTop: 50,
   },
-  input: {
-    flex: 1,
-    backgroundColor: 'white',
-    width: 300,
-    borderWidth: 3,
-    borderColor: 'black',
-    borderRadius: 7,
-    paddingLeft: 10,
-  },
   button: {
     flex: 1,
     backgroundColor: '#604848',
     width: 300,
+    height: 50,
     borderWidth: 3,
     borderColor: 'black',
     borderRadius: 7,
