@@ -14,15 +14,33 @@
    View
  } from 'react-native';
 
+import Root from './root';
 import Login from "./login";
+import List from "./list";
 
 
 class HdMobile extends Component{
 
+  renderScene(route, navigator) {
+    console.log(route);
+    if(route.name === 'root') {
+      return <Root navigator={navigator} />;
+    }
+    if(route.name === 'login') {
+      return <Login navigator={navigator} />;
+    }
+    if (route.name === 'list') {
+      return <List navigator={navigator} />;
+    }
+  }
+
   render(){
     return(
       <View style={styles.container}>
-        <Login />
+        <Navigator
+          initialRoute={{name: 'root'}}
+          renderScene={this.renderScene.bind(this)}
+          />
       </View>
     );
   }

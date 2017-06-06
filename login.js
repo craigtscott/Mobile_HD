@@ -27,7 +27,14 @@ class Login extends Component {
     }
   }
 
-  storeToken(responseData){
+
+  redirect(routeName, accessToken){
+    this.props.navigator.push({
+      name: routeName
+    });
+  }
+
+  async storeToken(responseData){
     AsyncStorage.setItem(ACCESS_TOKEN, responseData, (err)=> {
       if(err){
         console.log("an error");
@@ -55,7 +62,6 @@ class Login extends Component {
           }
         })
       });
-      debugger;
     let res = await response.text();
     if (response.status >= 200 && response.status < 300) {
           //Handle success
@@ -63,7 +69,7 @@ class Login extends Component {
           console.log(accessToken);
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
-          // this.redirect('home');
+          this.redirect('list');
     } else {
       //Handle error
         let error = res;
