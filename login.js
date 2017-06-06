@@ -74,15 +74,8 @@ class Login extends Component {
        console.log("error " + error);
        this.setState({showProgress: false});
    }
-    const user = Object.assign({}, this.state);
-    this.props.processForm(user)
-    .then(() =>
-      this.props.navigator.push({ name: "Lists" }));
   }
 
-  _signup() {
-    this.props.navigator.push({ name: "SignUp"});
-  }
 
   render() {
     var TouchableElement = TouchableHighlight;
