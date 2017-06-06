@@ -18,7 +18,6 @@ const ACCESS_TOKEN = 'access_token';
 class Root extends Component {
 
   componentWillMount() {
-    debugger;
     // this.getToken();
   }
   navigate(routeName) {

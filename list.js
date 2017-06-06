@@ -95,8 +95,8 @@ class List extends Component {
          TouchableElement = TouchableNativeFeedback;
         }
 
-        let bool = this.state.title !== "" ? false : true;
-        let _buttonName = bool ? styles.buttonDisabled : styles.button;
+        // let bool = this.state.title !== "" ? false : true;
+        // let _buttonName = bool ? styles.buttonDisabled : styles.button;
 
 
         return (

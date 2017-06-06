@@ -51,7 +51,6 @@ class Login extends Component {
     let user = Object.assign(this.state, info);
     let username = user.user_name;
     let password = user.password;
-    debugger;
     try {
       let response = await fetch('http://localhost:3000/api/session', {
         method: 'POST',
@@ -74,7 +73,7 @@ class Login extends Component {
           console.log(accessToken);
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
-          this.redirect('list');
+          this.redirect('list', accessToken);
     } else {
       //Handle error
         let error = res;
