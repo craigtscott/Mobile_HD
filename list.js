@@ -17,14 +17,14 @@ class List extends Component {
     super();
     //
     //     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    //     this.state = {
-    //       author_id: this.props.session.currentUser.id,
-    //       title: "",
-    //       id: 0,
-    //       dataSource: this.ds.cloneWithRows(["",""]),
-    //       modalVisible: false,
-    //       session_token: "",
-    //     };
+        this.state = {
+          // author_id: this.props.navigator.state.routeStack[1].passProps.userId,
+          // title: "",
+          // id: 0,
+          // dataSource: this.ds.cloneWithRows(["",""]),
+          // modalVisible: false,
+          // session_token: this.props.navigator.state.routeStack[1].passProps.accessToken,
+        };
     //
     //     this._showTasks = this._showTasks.bind(this);
     //     this._makeNewList = this._makeNewList.bind(this);
@@ -88,6 +88,10 @@ class List extends Component {
     //       this.setState({modalVisible: visible, id: rowData.id, title: ""});
     //     }
         }
+      componentWillMount(){
+        debugger;
+      }
+
 
       render() {
         var TouchableElement = TouchableHighlight;

@@ -29,9 +29,13 @@ class Login extends Component {
   }
 
 
-  redirect(routeName, accessToken){
+  redirect(routeName, token, id){
     this.props.navigator.push({
-      name: routeName
+      name: routeName,
+      passProps: {
+        accessToken: token,
+        userId: id
+      }
     });
   }
 
@@ -66,14 +70,20 @@ class Login extends Component {
           }
         })
       });
+      // debugger;
     let res = await response.text();
+    res = res.split(',');
+    // debugger;
     if (response.status >= 200 && response.status < 300) {
           //Handle success
-          let accessToken = res;
+          let accessToken = res[0];
+          let id = res[1];
+          // debugger;
           console.log(accessToken);
+          console.log(id);
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
-          this.redirect('list', accessToken);
+          this.redirect('list', accessToken, id);
     } else {
       //Handle error
         let error = res;
