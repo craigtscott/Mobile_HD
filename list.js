@@ -13,17 +13,18 @@ import { Text,
         Modal,
         } from 'react-native';
 class List extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     //
     //     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-          // author_id: this.props.navigator.state.routeStack[1].passProps.userId,
+          author_id: this.props.userId,
           // title: "",
           // id: 0,
           // dataSource: this.ds.cloneWithRows(["",""]),
           // modalVisible: false,
-          // session_token: this.props.navigator.state.routeStack[1].passProps.accessToken,
+          session_token: this.props.accessToken,
+          lists: {},
         };
     //
     //     this._showTasks = this._showTasks.bind(this);
@@ -88,8 +89,40 @@ class List extends Component {
     //       this.setState({modalVisible: visible, id: rowData.id, title: ""});
     //     }
         }
-      componentWillMount(){
+      componentDidMount(){
+        this.getLists();
+      }
+
+      async getLists() {
         debugger;
+        let id = this.state.author_id;
+        let accessToken = this.state.session_token
+        try {
+          let response = await fetch('http://localhost:3000/api/lists?session%5Bid%5D='+id+'&mobile='+true, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              }
+          });
+          // debugger;
+        let res = await response.text();
+        // debugger;
+        if (response.status >= 200 && response.status < 300) {
+              //Handle success
+              this.setState({lists: res});
+              console.log(res);
+              //On success we will store the access_token in the AsyncStorage
+        } else {
+          //Handle error
+            let error = res;
+            throw error;
+          }
+        } catch(error) {
+           this.setState({error: error});
+           console.log("error " + error);
+           this.setState({showProgress: false});
+       }
       }
 
 
@@ -106,6 +139,8 @@ class List extends Component {
         return (
           <View style={styles.page}>
               <Text>hi</Text>
+              <Text>{this.state.session_token}</Text>
+              <Text>{this.state.author_id}</Text>
           </View>
         );
       }

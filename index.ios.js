@@ -24,7 +24,7 @@ class HdMobile extends Component{
       return <Login navigator={navigator} />;
     }
     if (route.name === 'list') {
-      return <List navigator={navigator} />;
+      return <List navigator={navigator} {...route.passProps} />;
     }
   }
 
