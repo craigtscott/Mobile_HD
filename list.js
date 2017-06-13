@@ -21,7 +21,7 @@ class List extends Component {
           author_id: this.props.userId,
           // title: "",
           // id: 0,
-          dataSource: this.ds.cloneWithRows(["",""]),
+          dataSource: this.ds.cloneWithRows([]),
           // modalVisible: false,
           session_token: this.props.accessToken,
           lists: {},
@@ -95,7 +95,6 @@ class List extends Component {
       }
 
       async getLists() {
-        debugger;
         let id = this.state.author_id;
         let accessToken = this.state.session_token
         try {
@@ -109,7 +108,6 @@ class List extends Component {
           // debugger;
         let res = await response.text();
         res = JSON.parse(res);
-        debugger;
         if (response.status >= 200 && response.status < 300) {
               //Handle success
               this.setState({lists: res});
@@ -130,7 +128,16 @@ class List extends Component {
 
       setListArray(hash){
         const lists = Object.keys(hash).map(listId => hash[listId]);
+        let listArray = lists.map( (list, idx) => {
+          return list.title
+        })
+        console.log(listArray);
+        this.setState({dataSource: this.ds.cloneWithRows(listArray)});
         debugger;
+      }
+
+      _renderRow(rowData){
+        return <Text>{rowData}</Text>
       }
 
 
@@ -147,6 +154,10 @@ class List extends Component {
         return (
           <View style={styles.page}>
               <Text>hi</Text>
+              <ListView
+                dataSource={this.state.dataSource}
+                renderRow={this._renderRow}
+                />
           </View>
         );
       }
