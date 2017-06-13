@@ -27,6 +27,7 @@ class List extends Component {
           lists: {},
           listArray: [],
         };
+        this.getTasks = this.getTasks.bind(this);
     //
     //     this._showTasks = this._showTasks.bind(this);
     //     this._makeNewList = this._makeNewList.bind(this);
@@ -128,17 +129,26 @@ class List extends Component {
 
       setListArray(hash){
         const lists = Object.keys(hash).map(listId => hash[listId]);
-        let listArray = lists.map( (list, idx) => {
-          return list.title
-        })
-        console.log(listArray);
-        this.setState({dataSource: this.ds.cloneWithRows(listArray)});
+        // let listArray = lists.map( (list, idx) => {
+        //   return list.title
+        // })
+        // console.log(listArray);
+        this.setState({dataSource: this.ds.cloneWithRows(lists)});
+      }
+
+      getTasks(id) {
         debugger;
       }
 
       _renderRow(rowData){
-        return <Text>{rowData}</Text>
+        return (
+          <TouchableHighlight
+            onPress={() => this.getTasks(rowData.id)}>
+          <Text>{rowData.title}</Text>
+          </TouchableHighlight>
+        )
       }
+
 
 
       render() {
@@ -156,7 +166,7 @@ class List extends Component {
               <Text>hi</Text>
               <ListView
                 dataSource={this.state.dataSource}
-                renderRow={this._renderRow}
+                renderRow={rowData => (this._renderRow(rowData))}
                 />
           </View>
         );
