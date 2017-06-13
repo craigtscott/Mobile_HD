@@ -15,16 +15,17 @@ import { Text,
 class List extends Component {
   constructor(props){
     super(props);
-    //
-    //     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+        this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
           author_id: this.props.userId,
           // title: "",
           // id: 0,
-          // dataSource: this.ds.cloneWithRows(["",""]),
+          dataSource: this.ds.cloneWithRows(["",""]),
           // modalVisible: false,
           session_token: this.props.accessToken,
           lists: {},
+          listArray: [],
         };
     //
     //     this._showTasks = this._showTasks.bind(this);
@@ -107,11 +108,13 @@ class List extends Component {
           });
           // debugger;
         let res = await response.text();
-        // debugger;
+        res = JSON.parse(res);
+        debugger;
         if (response.status >= 200 && response.status < 300) {
               //Handle success
               this.setState({lists: res});
               console.log(res);
+              this.setListArray(res);
               //On success we will store the access_token in the AsyncStorage
         } else {
           //Handle error
@@ -123,6 +126,11 @@ class List extends Component {
            console.log("error " + error);
            this.setState({showProgress: false});
        }
+      }
+
+      setListArray(hash){
+        const lists = Object.keys(hash).map(listId => hash[listId]);
+        debugger;
       }
 
 
@@ -139,8 +147,6 @@ class List extends Component {
         return (
           <View style={styles.page}>
               <Text>hi</Text>
-              <Text>{this.state.session_token}</Text>
-              <Text>{this.state.author_id}</Text>
           </View>
         );
       }
