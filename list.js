@@ -19,8 +19,7 @@ class List extends Component {
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
           author_id: this.props.userId,
-          // title: "",
-          // id: 0,
+          title: "",
           dataSource: this.ds.cloneWithRows([]),
           // modalVisible: false,
           session_token: this.props.accessToken,
@@ -36,14 +35,13 @@ class List extends Component {
         let id = this.state.author_id;
         let accessToken = this.state.session_token
         try {
-          let response = await fetch('http://localhost:3000/api/lists?session%5Bid%5D='+id+'&mobile='+true, {
+          let response = await fetch('http://localhost:3000/api/lists?session%5Bid%5D='+id+'&mobile='+true+'&session_token='+accessToken, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
               }
           });
-          // debugger;
         let res = await response.text();
         res = JSON.parse(res);
         if (response.status >= 200 && response.status < 300) {
@@ -85,12 +83,22 @@ class List extends Component {
       }
 
       _renderRow(rowData){
+        var TouchableElement = TouchableHighlight;
+        if (Platform.OS === 'android') {
+         TouchableElement = TouchableNativeFeedback;
+        }
         return (
-          <TouchableHighlight
+          <TouchableElement
             onPress={() => this.getTasks(rowData.id)}>
           <Text>{rowData.title}</Text>
-          </TouchableHighlight>
+          </TouchableElement>
         )
+      }
+
+      _addList(){
+        this.props.navigator.push({
+          name: "addEdit",
+        })
       }
 
 
@@ -101,13 +109,14 @@ class List extends Component {
          TouchableElement = TouchableNativeFeedback;
         }
 
-        // let bool = this.state.title !== "" ? false : true;
-        // let _buttonName = bool ? styles.buttonDisabled : styles.button;
-
-
         return (
           <View style={styles.page}>
               <Text>Lists</Text>
+              <View>
+
+                <TouchableElement
+                  onPress={() =>this._addList()}><Text>+</Text></TouchableElement>
+              </View>
               <ListView
                 dataSource={this.state.dataSource}
                 renderRow={rowData => (this._renderRow(rowData))}

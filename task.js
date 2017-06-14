@@ -44,7 +44,6 @@ class Task extends Component {
             'Content-Type': 'application/json'
           }
       });
-      debugger;
     let res = await response.text();
     res = JSON.parse(res);
     if (response.status >= 200 && response.status < 300) {
