@@ -32,12 +32,11 @@ class List extends Component {
       componentDidMount(){
         this.getLists();
       }
-
       async getLists() {
         let id = this.state.author_id;
         let accessToken = this.state.session_token
         try {
-          let response = await fetch('http://localhost:3000/api/tasks?session%5Bid%5D='+id+'&mobile='+true, {
+          let response = await fetch('http://localhost:3000/api/lists?session%5Bid%5D='+id+'&mobile='+true, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
