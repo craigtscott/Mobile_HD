@@ -66,10 +66,6 @@ class List extends Component {
 
       setListArray(hash){
         const lists = Object.keys(hash).map(listId => hash[listId]);
-        // let listArray = lists.map( (list, idx) => {
-        //   return list.title
-        // })
-        // console.log(listArray);
         this.setState({dataSource: this.ds.cloneWithRows(lists)});
       }
 
@@ -111,7 +107,7 @@ class List extends Component {
 
         return (
           <View style={styles.page}>
-              <Text>hi</Text>
+              <Text>Lists</Text>
               <ListView
                 dataSource={this.state.dataSource}
                 renderRow={rowData => (this._renderRow(rowData))}
