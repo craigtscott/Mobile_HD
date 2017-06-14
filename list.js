@@ -28,68 +28,6 @@ class List extends Component {
           listArray: [],
         };
         this.getTasks = this.getTasks.bind(this);
-    //
-    //     this._showTasks = this._showTasks.bind(this);
-    //     this._makeNewList = this._makeNewList.bind(this);
-    //
-    //   }
-    //   componentWillMount(props) {
-    //     this.props.getLists()
-    //     .then((props) => {
-    //       if (props.lists){
-    //         if (Object.keys(props.lists).length === 0){
-    //           this._makeNewList();
-    //         }
-    //       }
-    //     });
-    //
-    //   }
-    //
-    // _showTasks(rowData) {
-    //     this.props.getTasks(rowData);
-    //     this.props.navigator.push({ name: "Tasks", list_id: `${rowData.id}` });
-    //
-    //   }
-    //
-    //   _makeNewList() {
-    //     let list;
-    //     if (this.state.title === "") {
-    //       list = {title: "New List", author_id: this.props.session.currentUser.id};
-    //     } else{
-    //       list = {title: this.state.title, author_id: this.props.session.currentUser.id};
-    //     }
-    //     this.props.createList(list);
-    //     this.setState({title: ""});
-    //   }
-    //
-    //   _changeList() {
-    //     list = {title: this.state.title, author_id: this.props.session.currentUser.id, id: this.state.id};
-    //     this.props.updateList(list)
-    //     .then(() => this.setModalVisible(!this.state.modalVisible, 0));
-    //   }
-    //
-    //   _deleteList() {
-    //     this.props.deleteList(this.state.id)
-    //     .then(() => this.setModalVisible(!this.state.modalVisible, 0));
-    //   }
-    //
-    //   componentWillReceiveProps(props) {
-    //     let temp = [];
-    //     for (var list in props.lists) {
-    //     if (props.lists.hasOwnProperty(list)) {
-    //       temp.push(props.lists[list]);
-    //     }
-    //   }
-    //   debugger;
-    //   this.setState({ dataSource: this.ds.cloneWithRows(temp) });
-    // };
-    //
-    //   setModalVisible(visible, rowData) {
-    //     if (this.state.title === ""){
-    //       this.setState({modalVisible: visible, id: rowData.id, title: rowData.title});
-    //     } else {
-    //       this.setState({modalVisible: visible, id: rowData.id, title: ""});
-    //     }
         }
       componentDidMount(){
         this.getLists();
@@ -99,7 +37,7 @@ class List extends Component {
         let id = this.state.author_id;
         let accessToken = this.state.session_token
         try {
-          let response = await fetch('http://localhost:3000/api/lists?session%5Bid%5D='+id+'&mobile='+true, {
+          let response = await fetch('http://localhost:3000/api/tasks?session%5Bid%5D='+id+'&mobile='+true, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -137,7 +75,18 @@ class List extends Component {
       }
 
       getTasks(id) {
-        debugger;
+        this.navigate("task", id);
+      }
+
+      navigate(routeName, id) {
+        this.props.navigator.push({
+          name: routeName,
+          passProps: {
+            accessToken: this.state.session_token,
+            userId: this.state.author_id,
+            listId: id,
+          }
+        });
       }
 
       _renderRow(rowData){

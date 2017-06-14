@@ -11,6 +11,7 @@
 import Root from './root';
 import Login from "./login";
 import List from "./list";
+import Task from "./task";
 
 
 class HdMobile extends Component{
@@ -25,6 +26,9 @@ class HdMobile extends Component{
     }
     if (route.name === 'list') {
       return <List navigator={navigator} {...route.passProps} />;
+    }
+    if (route.name === 'task') {
+      return <Task navigator={navigator} {...route.passProps} />;
     }
   }
 
